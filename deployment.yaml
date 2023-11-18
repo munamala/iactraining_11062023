@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: faulty-deployment
+  #missing labels
+  labels:
+    app: faulty-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: faulty-app
+  template:
+    metadata:
+      labels:
+        app: faulty-app
+    spec:
+      containers:
+      - name: faulty-app
+        image: faulty-app:latest
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: IfNotPresent
